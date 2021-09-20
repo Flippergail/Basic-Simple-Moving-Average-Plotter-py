@@ -10,9 +10,9 @@ data = yf.download('^SP500TR', '2020-09-01', '2021-09-01')
 mdata = data.resample('M').apply(lambda x: x[-1])
 monthly_return = mdata['Adj Close'].pct_change()
 # Plot graph of monthly prices
-mdata['Adj Close'].plot()
-plt.show()
+# mdata['Adj Close'].plot()
+# plt.show()
 # Plot graph of simple moving average
-moving_average = data['Adj Close'].rolling(window=35).mean()
+moving_average = data['Adj Close'].rolling(window=20).mean()
 moving_average.plot()
 plt.show()
