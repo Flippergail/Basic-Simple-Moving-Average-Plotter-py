@@ -5,7 +5,7 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 
 # Getting the data by specifying the stock ticker, start date, and end date
-data = yf.download('^SP500TR', '2018-09-01', '2021-09-01')
+data = yf.download('^SP500TR', '2015-09-01', '2021-09-23')
 moving_average = data['Adj Close'].rolling(window=20).mean()
 # initializing the short and long lookback periods
 short_lb = 50
