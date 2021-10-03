@@ -15,6 +15,7 @@ long_lb = 35
 signal_df = pd.DataFrame(index=data.index)
 signal_df['long_signal'] = 0.0
 signal_df['mid_signal'] = 0.0
+signal_df['profit'] = 0.0
 # making moving averages over time periods
 signal_df['short_mav'] = data['Adj Close'].rolling(window=short_lb, min_periods=1, center=False).mean()
 signal_df['mid_mav'] = data['Adj Close'].rolling(window=mid_lb, min_periods=1, center=False).mean()
@@ -35,6 +36,7 @@ plt1 = fig.add_subplot(111,  ylabel='Price in $')
 data['Adj Close'].plot(ax=plt1, color='r', lw=2.)
 # plot the short and long lookback moving averages
 signal_df[['short_mav', 'mid_mav', 'long_mav']].plot(ax=plt1, lw=2., figsize=(12,8))
+print(signal_df)
 # plotting the sell/buy signals
 long_sell = signal_df.loc[signal_df.long_positions == -1.0].index
 long_buy = signal_df.loc[signal_df.long_positions == 1.0].index
