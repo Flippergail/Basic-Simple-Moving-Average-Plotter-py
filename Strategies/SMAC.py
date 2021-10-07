@@ -5,7 +5,7 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 
 # Getting the data by specifying the stock ticker, start date, and end date
-data = yf.download('^SP500TR', '2021-01-01', '2021-10-03')
+data = yf.download('^SP500TR', '2019-01-01', '2021-10-03')
 moving_average = data['Adj Close'].rolling(window=20).mean()
 # initializing the short and long lookback periods
 short_lb = 10
@@ -36,10 +36,10 @@ def total_up(values_list):
     if len(signal_df.actual_price[values_list == -1.0]) != len(signal_df.actual_price[values_list == 1.0]):
         print("a trade is still running")
         sell_value += signal_df.actual_price[-1]
-    total_value = (sell_value-buy_value)/buy_value*100/2
+    total_value = (sell_value-buy_value)/buy_value*100
     return total_value
 
-trade_revenue = total_up(signal_df.long_positions) + total_up(signal_df.mid_positions)
+trade_revenue = total_up(signal_df.long_positions)
 print(f"{round(trade_revenue, 2)}% revenue")
 # initialize the plot using plt
 fig = plt.figure()
@@ -56,6 +56,6 @@ mid_buy = signal_df.loc[signal_df.mid_positions == 1.0].index
 
 plt1.plot(long_buy, signal_df.actual_price[signal_df.long_positions == 1.0], '^', markersize=7, color='c')
 plt1.plot(long_sell, signal_df.actual_price[signal_df.long_positions == -1.0], 'v', markersize=7, color='c')
-plt1.plot(mid_buy, signal_df.actual_price[signal_df.mid_positions == 1.0], '^', markersize=7, color='m')
-plt1.plot(mid_sell, signal_df.actual_price[signal_df.mid_positions == -1.0], 'v', markersize=7, color='m')
+#plt1.plot(mid_buy, signal_df.actual_price[signal_df.mid_positions == 1.0], '^', markersize=7, color='m')
+#plt1.plot(mid_sell, signal_df.actual_price[signal_df.mid_positions == -1.0], 'v', markersize=7, color='m')
 plt.show()
